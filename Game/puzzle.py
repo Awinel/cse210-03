@@ -1,8 +1,4 @@
-
-
-
-
-from CSE 210 .cse210-03.Game.words import Words
+from CSE 210.cse210-03.Game.words import Words
 
 
 class Puzzle:
@@ -22,17 +18,13 @@ class Puzzle:
         self._word = self._words.hiden_word()
     
     def hidden_word(self):
-        for _ in self._word:
-            print("_", end="")
+        for letter in self._word:
+            if letter in (self._right_letters):
+                print("letter", end=" ")
+            else:
+                print("_", end=" ")
     
     def guess(self):
+        self._player_guess = input("Guess a letter [a-z]: ")
         letter_guessed = self._player_guess
         return letter_guessed
-
-    def guessed(self):
-        word = self._word
-        for letter in word:
-            if self.guess == letter:
-                print(letter, end="")
-            else:
-                print("_", end="")
