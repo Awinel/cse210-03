@@ -11,7 +11,7 @@ class Parachute():
         self._picture = []
     
     def whole_parachute(self):
-        self.picture = [
+        self._picture = [
          " ___",
         "/___\\",
         "\   /",
@@ -20,3 +20,16 @@ class Parachute():
          " /|\\",
          " / \\",
         ]
+        print(self._picture[0])
+        print(self._picture[1])
+        print(self._picture[2])
+        print(self._picture[3])
+        print(self._picture[4])
+        print(self._picture[5])
+        print(self._picture[6])
+        print("")
+        print(self._picture[7])
+
+    def index_parachute(self):
+        index = self._picture
+        return index
