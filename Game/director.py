@@ -33,12 +33,12 @@ class Words:
 class Puzzle:
     """The hiden word that will be desplay when the player guesses correctly
 
-    The responsabiliti of Puzzle is to keep the secret word and when the player
-    guesses correctly display the correct letter
+    The responsabiliti of Puzzle is to keep the secret word and ask the user for a letter
     
     Attributes:
         words (list(Words)): A list for a possible word to be guess
-        is_playing (boolean): whether or not the game is being played
+        hidden_word (int): The secret letter
+        guess (input): The question for the user and then return the value
     """
 
     def __init__(self):
@@ -47,16 +47,10 @@ class Puzzle:
         self._word = self._words.hiden_word()
     
     def hidden_word(self):
+        secret_word = []
         for letter in self._word:
-            if letter in (self._right_letters):
-                print("letter", end=" ")
-            else:
-                print("_", end=" ")
-    
-    def guess(self):
-        self._player_guess = input("Guess a letter [a-z]: ")
-        letter_guessed = self._player_guess
-        return letter_guessed
+            secret_word.append(letter)
+        return secret_word
 
 class Parachute():
     """The picture of a parachute
@@ -68,9 +62,6 @@ class Parachute():
     """
 
     def __init__(self):
-        self._picture = []
-    
-    def whole_parachute(self):
         self._picture = [
          " ___",
         "/___\\",
@@ -81,6 +72,8 @@ class Parachute():
          " / \\",
          "^^^^^^^^^"
         ]
+    
+    def whole_parachute(self):
         print(self._picture[0])
         print(self._picture[1])
         print(self._picture[2])
@@ -112,29 +105,39 @@ class Director():
         self._puzzle = Puzzle()
         self._parachute = Parachute()
         self._get_index = self._parachute.index_parachute()
+        self._secret_word = self._puzzle.hidden_word()
         self._right_letters = []
         self._wrong_letters =[]
+        self._player_guess = ""
+        self._win_check = []
 
     def is_playing(self):
         while self.game_over != True:
-            self._puzzle.hidden_word()
+            secret_word = self._secret_word
+            for letter in secret_word:
+                if self._player_guess == letter and (self._player_guess not in self._right_letters):
+                    self._right_letters.append(letter)
+                    self._win_check.append(letter)
+                else:
+                    self._wrong_letters.append(self._player_guess)
+            for i in secret_word:
+                if i in self._right_letters:
+                    print(i, end=" ")
+                else:
+                    print("_", end=" ")
             print("")
             self._parachute.whole_parachute()
-            self._puzzle.guess()
-    
-    def guessed(self):
-        word = self._word
-        user_guess = self.guess
-        for letter in word:
-            if user_guess == letter:
-                self._right_letters.append(user_guess)
-            else:
-                self._wrong_letters.append(user_guess)
+            self._player_guess = input("Guess a letter [a-z]: ")
+            print(self._right_letters)
+            print(self._win_check)
 
     def game_over(self):
         if self._get_index[4] == "  X":
             print("Game Over")
             return True
+        elif len(self._win_check) == len(self._right_letters):
+            print("You Win")
+            return False
         else:
             return False
 

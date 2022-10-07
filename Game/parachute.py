@@ -8,9 +8,6 @@ class Parachute():
     """
 
     def __init__(self):
-        self._picture = []
-    
-    def whole_parachute(self):
         self._picture = [
          " ___",
         "/___\\",
@@ -19,7 +16,10 @@ class Parachute():
           "  O",
          " /|\\",
          " / \\",
+         "^^^^^^^^^"
         ]
+    
+    def whole_parachute(self):
         print(self._picture[0])
         print(self._picture[1])
         print(self._picture[2])
