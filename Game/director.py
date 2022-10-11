@@ -1,6 +1,6 @@
 
-from CSE 210.cse210-03.Game.parachute import Parachute
-from CSE 210.cse210-03.Game.puzzle import Puzzle
+from Game.parachute import Parachute
+from Game.puzzle import Puzzle
 
 class Director():
     """A person that directs the game

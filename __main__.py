@@ -1,4 +1,4 @@
-from Game import director
+from Game.director import Director
 
 director = Director()
 director.is_playing()

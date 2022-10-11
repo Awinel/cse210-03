@@ -23,5 +23,5 @@ class Words:
         return self._guessed_letters
 
     def hiden_word(self):
-        secret_word = random.choise(self.get_word())
+        secret_word = random.choice(self.get_word())
         return secret_word

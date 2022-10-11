@@ -1,4 +1,4 @@
-from CSE 210.cse210-03.Game.words import Words
+from Game.words import Words
 
 
 class Puzzle:
