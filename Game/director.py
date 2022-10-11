@@ -1,86 +1,6 @@
 
-# from CSE 210.cse210-03.Game.parachute import Parachute
-# from CSE 210.cse210-03.Game.puzzle import Puzzle
-
-import random
-
-class Words:
-    """A list of possible words to be guessed to the player
-    
-    The responsability of Words is to display a word from a list of words and
-    to keep track of the letters guessed for the player
-    
-    Attributes_
-        word (list): List of possible words
-        guessed_letters (list): A list of the guessed letters
-    """
-
-    def __init__(self):
-        self._word = ["apple", "pineapple", "tomato", "apricot", "potato"
-        , "avocado", "orange", "blueberry", "cranberry", "banana"]
-        self._guessed_letters = []
-    
-    def get_word(self):
-        return self._word
-
-    def get_guessed_letters(self):
-        return self._guessed_letters
-
-    def hiden_word(self):
-        secret_word = random.choice(self.get_word())
-        return secret_word
-
-class Puzzle:
-    """The hiden word that will be desplay when the player guesses correctly
-
-    The responsabiliti of Puzzle is to keep the secret word and ask the user for a letter
-    
-    Attributes:
-        words (list(Words)): A list for a possible word to be guess
-        hidden_word (int): The secret letter
-        guess (input): The question for the user and then return the value
-    """
-
-    def __init__(self):
-        self._words = Words()
-        self._player_guess = ""
-        self._word = self._words.hiden_word()
-    
-    def hidden_word(self):
-        secret_word = []
-        for letter in self._word:
-            secret_word.append(letter)
-        return secret_word
-
-class Parachute():
-    """The picture of a parachute
-    
-    The responsability of Parachute is to display the whole image
-    
-    Attributes:
-        picture (list): List that will contain each part of the parachute
-    """
-
-    def __init__(self):
-        self._picture = [
-         " ___",
-        "/___\\",
-        "\   /",
-         " \ /",
-          "  O",
-         " /|\\",
-         " / \\",
-         "",
-         "^^^^^^^^^"
-        ]
-    
-    def whole_parachute(self):
-        for i in self._picture:
-            print(i)
-
-    def index_parachute(self):
-        index = self._picture
-        return index
+from CSE 210.cse210-03.Game.parachute import Parachute
+from CSE 210.cse210-03.Game.puzzle import Puzzle
 
 class Director():
     """A person that directs the game
@@ -88,12 +8,13 @@ class Director():
     The responsability of Director is to control the secuense of the play
     
     Attributes:
-        is_playing (boolean):
-        game_over:
-        letters_right:
-        puzzle:
-        parachute:
-        index:
+        is_playing (boolean): verify and keep the game on.
+        game_over (if/else): Stop the game when the user guess correctly or the player run out of guesses
+        _letters_right (list[int]): Counter of the letter for the hidden word
+        _puzzle: A variable that contains the class for Puzzle()
+        _parachute: A variable that contains the class for Parachute()
+        _get_index (list): List that contains the index of the hidden word
+        _wrong_guesses (int): Counter for the wrong guesses of the player
         """
     def __init__(self):
         self._puzzle = Puzzle()
@@ -142,8 +63,3 @@ class Director():
             return True
         else:
             return False
-
-
-
-director = Director()
-director.is_playing()
