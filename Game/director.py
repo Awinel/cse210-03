@@ -70,19 +70,13 @@ class Parachute():
           "  O",
          " /|\\",
          " / \\",
+         "",
          "^^^^^^^^^"
         ]
     
     def whole_parachute(self):
-        print(self._picture[0])
-        print(self._picture[1])
-        print(self._picture[2])
-        print(self._picture[3])
-        print(self._picture[4])
-        print(self._picture[5])
-        print(self._picture[6])
-        print("")
-        print(self._picture[7])
+        for i in self._picture:
+            print(i)
 
     def index_parachute(self):
         index = self._picture
@@ -107,39 +101,49 @@ class Director():
         self._get_index = self._parachute.index_parachute()
         self._secret_word = self._puzzle.hidden_word()
         self._right_letters = []
-        self._wrong_letters =[]
         self._player_guess = ""
-        self._win_check = []
+        self._wrong_guesses = -1
 
     def is_playing(self):
-        while self.game_over != True:
+        while self.game_over() != True:
             secret_word = self._secret_word
             for letter in secret_word:
                 if self._player_guess == letter and (self._player_guess not in self._right_letters):
                     self._right_letters.append(letter)
-                    self._win_check.append(letter)
-                else:
-                    self._wrong_letters.append(self._player_guess)
+            if self._player_guess not in secret_word:
+                self._wrong_guesses += 1
             for i in secret_word:
                 if i in self._right_letters:
                     print(i, end=" ")
                 else:
                     print("_", end=" ")
-            print("")
-            self._parachute.whole_parachute()
-            self._player_guess = input("Guess a letter [a-z]: ")
-            print(self._right_letters)
-            print(self._win_check)
+            print("\n")
+            if self._wrong_guesses == 0:
+                self._parachute.whole_parachute()
+                self._player_guess = input("Guess a letter [a-z]: ")
+            elif (self._wrong_guesses > 0 and self._wrong_guesses <= 4) and self._player_guess not in secret_word:
+                self._get_index.pop(0)
+                for i in self._get_index:
+                    print(i)
+                self._player_guess = input("Guess a letter [a-z]: ")
+            elif self._wrong_guesses == 5:
+                self._get_index.pop(0)
+                self._get_index.insert(0, "  X")
+                for i in self._get_index:
+                    print(i)
+            else:
+                for i in self._get_index:
+                    print(i)
+                self._player_guess = input("Guess a letter [a-z]: ")
 
     def game_over(self):
-        if self._get_index[4] == "  X":
+        if self._get_index[0] == "  X":
             print("Game Over")
             return True
-        elif len(self._win_check) == len(self._right_letters):
-            print("You Win")
-            return False
         else:
             return False
+
+
 
 director = Director()
 director.is_playing()
